@@ -35,12 +35,21 @@ class ContactController extends AbstractController
         $mailer->send($email); */
         //dd($mailer);
         $name= $request->get('nomPrenom');
-        $message = (new \Swift_Message('Hello Email'))
-        ->setFrom($request->get('Email'))
-        ->setTo('benkhalifahalima@hotmail.com')
+        $email=$request->get('Email');
+        $body="<ul>";
+        $body.="<li>"."Nom & Prénom: ".$name."</li>"."<br>";
+        $body.="<li>"."E-mail: <a href='mailto:$email'>".$request->get('Email')."</a>"."</li>"."<br>";
+        $body.="<li>"."Message: ".$request->get('Message')."</li>";
+        $body.="</ul>";
+        $message = (new \Swift_Message('Formulaire de contact [genodics.be]'))
+        ->setFrom('Rachi@genodics.net')
+        ->setTo('Rachi@genodics.net')
         ->setBody(
-            $request->get('Message')
-        );
+            $body,
+            'text/html'
+            
+        )
+        ;
 
      
         

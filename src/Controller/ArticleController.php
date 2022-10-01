@@ -115,10 +115,18 @@ class ArticleController extends AbstractController
         $comment->setParent($parent);
         $comment->setCreatedAt(new DateTimeImmutable('now'));
 
+        //$parentId = $request->get('Message')->getData();
+        //$parent = $em->getRepository(Commentaire::class)->find($parentId);
+       // $comment->setParent($parent);
+
         $em->persist($comment);
         $em->flush();
         $titre= 'article';
-       
+        // return $this->render('article/detail.html.twig', [
+        //     'controller_name' => 'ArticleController',
+        //     'titre'=>$titre,
+        //     'article'=>$article
+        // ]);
         return $this->redirectToRoute("article_single",[
             'id'=> $idArticle
         ]);

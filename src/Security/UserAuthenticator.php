@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,6 +54,7 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
         // return new RedirectResponse($this->urlGenerator->generate('some_route'));
         //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
         $user= $token->getUser();
+        
         if (!in_array('ROLE_ADMIN', $user->getRoles())) {
             return new RedirectResponse($this->urlGenerator->generate('app_home'));
         }
