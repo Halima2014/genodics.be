@@ -1,0 +1,306 @@
+{% extends 'frontbase.html.twig' %}
+
+ {% block title %}Genodics-Articles{%endblock%} 
+ 
+ {% block body %}
+
+<!-- site wrapper -->
+<div class="site-wrapper">
+	<div class="main-overlay"></div>
+
+	<!-- header -->
+	{% include "headerBlanc.html.twig" %}
+
+	
+
+	
+
+	<!-- page header -->
+	<section class="single-cover data-bg-image" data-bg-image="{{asset('uploads/articles/images/')}}{{article.image}}"
+		style="background-image: url(&quot;{{asset('uploads/articles/images/')}}{{article.image}}&quot;)!important;">
+
+		<div class="container-xl">
+			<div class="cover-content post">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="{{path('app_home')}}">Accueil</a></li>
+						<li class="breadcrumb-item"><a href="{{path('app_article')}}">Article</a></li>
+						<li class="breadcrumb-item active" aria-current="page">{{article.titre}}</li>
+					</ol>
+				</nav>
+				<!-- post header -->
+				<div class="post-header">
+					<h1 class="title mt-0 mb-3">{{article.titre}}</h1>
+					<ul class="meta list-inline mb-0">
+						<li class="list-inline-item"><a href="#"><img
+									src="{{asset('front/images/other/author-sm.png')}}" class="author"
+									alt="author"><span class="category-badge">{{article.auteur}}</span></a></li>
+						<li class="list-inline-item category-badge"><a
+								href="{{path('article_categorie',{'categorie':article.categorie.id})}}">{{article.categorie}}</a>
+						</li>
+						<li class="list-inline-item category-badge">{{article.createdAt|date("m/Y")}}</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+	</section>
+
+	<!-- section main content -->
+	<section class="main-content">
+		<div class="container-xl">
+			<div class="row">
+
+				{# debut article #}
+				<div class="col-lg-8">
+					<!-- post single -->
+					<div class="post post-single">
+						<!-- post content -->
+						<div class="post-content clearfix">
+							{{article.description|striptags}}
+						</div>
+						<!-- post bottom section -->
+						<div class="post-bottom">
+						{% set hashtags = article.hashtags %}
+						{% if hashtags|length > 0 %}
+						<div class="section-header">
+						<h3 class="section-title">Mots clés ({{hashtags|length}})</h3>
+						<img src="{{asset('front/images/wave.svg')}}" class="wave" alt="wave">
+					</div>
+						{% endif %}
+						
+							<div class="row d-flex align-items-center">
+								<div class="col-md-12 col-12 text-center text-md-start">
+									<!-- tags -->
+									
+									{% for hashtag in hashtags %}
+									<a href="{{path('article_hashtag',{label:hashtag.label})}}"
+										class="tag">#{{hashtag.label}}</a>
+									{% endfor %}
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+
+					<div class="spacer" data-height="50" style="height: 50px;"></div>
+
+
+
+					<div class="spacer" data-height="50" style="height: 50px;"></div>
+
+					
+					<!-- post comments -->
+					{% if commentaires|length > 0 %}
+					<!-- section header -->
+					<div class="section-header">
+						<h3 class="section-title">Commentaires ({{commentaires|length}})</h3>
+						<img src="{{asset('front/images/wave.svg')}}" class="wave" alt="wave">
+					</div>
+					<div class="comments bordered padding-30 rounded">
+
+						<ul class="comments">
+							{% for comment in commentaires %}
+							{% if comment.publier and comment.parent ==null %}
+							<!-- comment item -->
+							<li class="comment rounded">
+								<div class="thumb">
+									{% if comment.utilisateur.photo %}
+									<img class="image-comment rounded-circle border border-danger"
+										src="{{asset('uploads/users/')}}{{comment.utilisateur.photo}}"
+										alt="{{comment.utilisateur}}">
+
+									{% else %}
+									<img class="image-comment rounded-circle border border-danger"
+										src="{{asset('front/images/other/profile.jpg')}}"
+										alt="{{comment.utilisateur}}">
+
+									{% endif %}
+								</div>
+								<div class="details">
+									<h4 class="name"><a href="#">{{comment.utilisateur.nom}}
+											{{comment.utilisateur.prenom}}</a></h4>
+									<span class="date">{{comment.createdAt|date("d/m/Y-H:i:s")}}</span>
+									<p>{{comment.contenu|raw}}</p>
+
+
+
+									<p><a href="javascript:jQuery('#comment-div-{{comment.id}}').toggleClass('d-none')"
+											class="btn btn-default btn-sm" data-reply data-id="{{comment.id}}"> Répondre
+										</a></p>
+									{% if is_granted("ROLE_USER") %}
+									<div id="comment-div-{{comment.id}}"
+										class="comment-form rounded bordered padding-30 d-none">
+
+										<form id="comment-form-{{comment.id}}" class=" comment-form" method="post"
+											action="{{ path('ajout_comment')}}">
+
+											<div class="messages"></div>
+
+											<div class="row">
+
+												<div class="column col-md-12">
+													<!-- Comment textarea -->
+													<div class="form-group">
+														<input type="text" name="idArticle" hidden
+															value="{{idArticle}}" />
+														<input type="text" name="parent" value="{{comment.id}}"
+															hidden />
+														<textarea name="Message" id="InputComment" class="form-control"
+															rows="4" placeholder="Votre commentaire..."
+															required="required"></textarea>
+													</div>
+												</div>
+
+											</div>
+
+											<button type="submit" name="submit" id="submit" value="Submit"
+												class="btn btn-default">Envoyer</button><!-- Submit Button -->
+
+										</form>
+									</div>
+									{% endif %}
+
+								</div>
+							</li>
+							{% for reponse in comment.reponses %}
+
+							{% if reponse.publier %}
+							<li class="comment child rounded">
+								<div class="thumb">
+									{% if reponse.utilisateur.photo %}
+									<img class="image-comment rounded-circle border border-danger"
+										src="{{asset('uploads/users/')}}{{reponse.utilisateur.photo}}"
+										alt="{{reponse.utilisateur}}">
+
+									{% else %}
+									<img class="image-comment rounded-circle border border-danger"
+										src="{{asset('front/images/other/profile.jpg')}}"
+										alt="{{reponse.utilisateur}}">
+
+									{% endif %}
+
+								</div>
+								<div class="details">
+									<h4 class="name"><a href="#">{{reponse.utilisateur.nom}}
+											{{reponse.utilisateur.prenom}}</a></h4>
+									<span class="date">{{reponse.createdAt|date("d/m/Y-H:i:s")}}</span>
+									<p>{{reponse.contenu|raw}}</p>
+									<a href="javascript:jQuery('#comment-div-{{comment.id}}').toggleClass('d-none')"
+										class="btn btn-default btn-sm">Repondre</a>
+
+								</div>
+							</li>
+							{% endif %}
+
+							{% endfor %}
+
+							{% endif %}
+
+							{% endfor %}
+
+						</ul>
+					</div>
+					{% endif %}
+
+					<div class="spacer" data-height="50" style="height: 50px;"></div>
+
+					<!-- section header -->
+					<div class="section-header">
+						<h3 class="section-title">Laisser commentaire</h3>
+						<img src="{{asset('front/images/wave.svg')}}" class="wave" alt="wave">
+					</div>
+					<!-- comment form -->
+					{% if is_granted("ROLE_USER") %}
+					<div class="comment-form rounded bordered padding-30">
+
+						<form id="comment-form" class="comment-form" method="post" action="{{ path('ajout_comment')}}">
+
+							<div class="messages"></div>
+
+							<div class="row">
+
+								<div class="column col-md-12">
+									<!-- Comment textarea -->
+									<div class="form-group">
+										<input type="text" name="idArticle" hidden value="{{idArticle}}" />
+										<textarea name="Message" id="InputComment" class="form-control" rows="4"
+											placeholder="Votre commentaire..." required="required"></textarea>
+									</div>
+								</div>
+
+								{# <div class="column col-md-6">
+									<!-- Email input -->
+									<div class="form-group">
+										<input type="email" class="form-control" id="InputEmail" name="InputEmail"
+											placeholder="Email address" required="required">
+									</div>
+								</div> #}
+
+								{# <div class="column col-md-6">
+									<!-- Name input -->
+									<div class="form-group">
+										<input type="text" class="form-control" name="InputWeb" id="InputWeb"
+											placeholder="Website" required="required">
+									</div>
+								</div> #}
+
+								{# <div class="column col-md-12">
+									<!-- Email input -->
+									<div class="form-group">
+										<input type="text" class="form-control" id="InputName" name="InputName"
+											placeholder="Your name" required="required">
+									</div>
+								</div> #}
+
+							</div>
+
+							<button type="submit" name="submit" id="submit" value="Submit"
+								class="btn btn-default">Envoyer</button><!-- Submit Button -->
+
+						</form>
+					</div>
+					{% else %}
+					<a class="btn btn-default" href="{{ path('app_register') }}">Inscription</a>
+					<a class="btn btn-default" href="{{ path('app_login') }}">Connexion</a>
+					{% endif %}
+
+				</div>
+				{# fin article #}
+				<div class="col-lg-4">
+
+					<!-- sidebar -->
+					<div class="sidebar">
+						<div class="inner-wrapper-sticky" style="position: relative;">
+							<!-- widget about -->
+							<div class="widget rounded">
+								<div class="widget-about text-center">
+									<a target="blank" href="{{asset('uploads/articles/')}}{{article.fichier}}">
+										<img width="150px" height="150px" src="{{asset('front/images/pdf-logo.png')}}"
+											alt="logo" class="mb-4">
+										<p class="mb-4">Télécharger le fichier</p>
+									</a>
+
+								</div>
+							</div>
+							<!-- widget about -->
+							{% set hashtags = article.hashtags %}
+							{% include "reaction/reactions.html.twig" %}
+							{% include "hashtag/hashtags.html.twig" %}
+						</div>
+
+
+					</div>
+
+				</div>
+			</div>
+	</section>
+
+	<!-- footer -->
+	{% include "footer.html.twig" %}
+</div>
+<!-- end site wrapper -->
+
+{% include "menu.html.twig" %} {% endblock %}

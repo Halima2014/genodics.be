@@ -1,0 +1,62 @@
+{% extends 'frontbase.html.twig' %} 
+{% block title %}Genodics-Media{% endblock%} 
+{% block meta_description %}media description{% endblock%} 
+{% block body %}
+
+<!-- site wrapper -->
+<div class="site-wrapper">
+  <div class="main-overlay"></div>
+
+  <!-- header -->
+  {% include "headerBlanc.html.twig" %}
+
+  <!-- page header -->
+  <section class="page-header">
+    <div class="container-xl">
+      <div class="text-center">
+        <h1 class="mt-0 mb-2">{{titre}}</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a href="{{path('app_home')}}">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{titre}}</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- section main content -->
+  <section class="main-content">
+    <div class="container-xl">
+      <div class="row">
+        {% for media in medias %}
+        <div class="col-sm-4 mb-3 mx-auto  d-flex">
+          <!-- post -->
+          <div class="post post-grid rounded bordered w-100">
+            <div class="thumb top-rounded">
+              <div class="inner">
+                {{media.videoUrl|raw}}
+              </div>
+
+              <a href="{{path('media_categorie',{id:media.categorie.id})}}" class="m-3 category-badge">{{
+                media.categorie
+              }}</a>
+            </div>
+            <div class="details">
+              <h5 class="post-title mb-3 mt-3">
+                <a href="{{path('media_detail',{id:media.id})}}">{{ media.titre }}</a>
+              </h5>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  {% include "footer.html.twig" %}
+</div>
+<!-- end site wrapper -->
+
+{% include "menu.html.twig" %} {% endblock %}

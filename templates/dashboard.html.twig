@@ -1,0 +1,276 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+{% block head_stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/easyadmin/app.css') }}"/>
+	<link rel="stylesheet" href="{{ asset('front/css/dash.css') }}"/>
+{% endblock %}
+{% block content_title %}Dashboard
+{% endblock %}
+{% block main %}
+	<div class="container">
+		<div
+			class="row">
+
+			{# Utilisateurs #}
+			{% if is_granted("ROLE_ADMIN") %}
+				<div class="col-xl-4 col-md-6 mb-4 mx-auto">
+					{% set utilisateurUrl = ea_url()
+					.setController('App\\Controller\\Admin\\UserCrudController')
+					.setAction('index')
+					%}
+					<a href="{{utilisateurUrl}}">
+						<div class="card border-left-warning shadow h-100 py-2">
+							<div class="card-body">
+								<div class="row no-gutters align-items-center">
+									<div class="col mr-2">
+										<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+											Utilisateurs
+										</div>
+										<div class="h5 mb-0 font-weight-bold text-gray-800">{{stat.users}}</div>
+									</div>
+									<div class="col-auto">
+										<i class="fas fa-user fa-2x text-gray-300"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endif %}
+
+
+			{# Articles #}
+			{% if is_granted("ROLE_ADMIN") %}
+				<div class="col-xl-4 col-md-6 mb-4 mx-auto">
+					{% set articleUrl = ea_url()
+					.setController('App\\Controller\\Admin\\ArticleCrudController')
+					.setAction('index')
+					%}
+					<a href="{{ articleUrl}}">
+						<div class="card border-left-warning shadow h-100 py-2">
+							<div class="card-body">
+								<div class="row no-gutters align-items-center">
+									<div class="col mr-2">
+										<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+											Articles
+										</div>
+										<div class="h5 mb-0 font-weight-bold text-gray-800">{{stat.articles}}</div>
+									</div>
+									<div class="col-auto">
+										<i class="fas fa-file-alt fa-2x text-gray-300"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endif %}
+
+			{# Catégories #}
+			{% if is_granted("ROLE_ADMIN") %}
+				<div class="col-xl-4 col-md-6 mb-4 mx-auto">
+					{% set categorieUrl = ea_url()
+					.setController('App\\Controller\\Admin\\CategorieCrudController')
+					.setAction('index')
+					%}
+					<a href="{{ categorieUrl }}">
+						<div class="card border-left-warning shadow h-100 py-2">
+							<div class="card-body">
+								<div class="row no-gutters align-items-center">
+									<div class="col mr-2">
+										<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+											Catégories
+										</div>
+										<div class="h5 mb-0 font-weight-bold text-gray-800">{{stat.categories}}</div>
+									</div>
+									<div class="col-auto">
+										<i class="fas fa-tags fa-2x text-gray-300"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endif %}
+
+			{# Commentaires #}
+			{% if is_granted("ROLE_USER") %}
+				<div class="col-xl-4 col-md-6 mb-4 mx-auto">
+					{% set commentUrl = ea_url()
+						.setController('App\\Controller\\Admin\\CommentaireCrudController')
+						.setAction('index')
+						%}
+					<a href="{{ commentUrl }}">
+						<div class="card border-left-warning shadow h-100 py-2">
+							<div class="card-body">
+								<div class="row no-gutters align-items-center">
+									<div class="col mr-2">
+										<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+											Commentaires
+										</div>
+										<div class="h5 mb-0 font-weight-bold text-gray-800">{{stat.commentaires}}</div>
+									</div>
+									<div class="col-auto">
+										<i class="fas fa-comments fa-2x text-gray-300"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endif %}
+			{# medias #}
+			{% if is_granted("ROLE_ADMIN") %}
+				<div class="col-xl-4 col-md-6 mb-4 mx-auto">
+					{% set mediaUrl = ea_url()
+					.setController('App\\Controller\\Admin\\MediaCrudController')
+					.setAction('index')
+					%}
+					<a href="{{ mediaUrl }}">
+						<div class="card border-left-warning shadow h-100 py-2">
+							<div class="card-body">
+								<div class="row no-gutters align-items-center">
+									<div class="col mr-2">
+										<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+											Medias
+										</div>
+										<div class="h5 mb-0 font-weight-bold text-gray-800">{{stat.medias}}</div>
+									</div>
+									<div class="col-auto">
+										<i class="fas fa-video fa-2x text-gray-300"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endif %}
+			{# sites #}
+			{% if is_granted("ROLE_ADMIN") %}
+				<div class="col-xl-4 col-md-6 mb-4 mx-auto">
+					{% set siteUrl = ea_url()
+					.setController('App\\Controller\\Admin\\SiteCrudController')
+					.setAction('index')
+					%}
+					<a href="{{ siteUrl }}">
+						<div class="card border-left-warning shadow h-100 py-2">
+							<div class="card-body">
+								<div class="row no-gutters align-items-center">
+									<div class="col mr-2">
+										<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+											Sites
+										</div>
+										<div class="h5 mb-0 font-weight-bold text-gray-800">{{stat.sites}}</div>
+									</div>
+									<div class="col-auto">
+										<i class="fas fa-globe fa-2x text-gray-300"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endif %}
+			{# hashtag #}
+			{% if is_granted("ROLE_ADMIN") %}
+				<div class="col-xl-4 col-md-6 mb-4 mx-auto">
+					{% set hashtagUrl = ea_url()
+					.setController('App\\Controller\\Admin\\HashtagCrudController')
+					.setAction('index')
+					%}
+					<a href="{{ hashtagUrl }}">
+						<div class="card border-left-warning shadow h-100 py-2">
+							<div class="card-body">
+								<div class="row no-gutters align-items-center">
+									<div class="col mr-2">
+										<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+											Hashtags
+										</div>
+										<div class="h5 mb-0 font-weight-bold text-gray-800">{{stat.hashtags}}</div>
+									</div>
+									<div class="col-auto">
+										<i class="fas fa-hashtag fa-2x text-gray-300"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endif %}
+			{# like #}
+			{% if is_granted("ROLE_USER") %}
+				<div class="col-xl-4 col-md-6 mb-4 mx-auto">
+					{% set likeUrl = ea_url()
+					.setController('App\\Controller\\Admin\\LikeCrudController')
+					.setAction('index')
+					%}
+					<a href="{{ likeUrl }}">
+						<div class="card border-left-warning shadow h-100 py-2">
+							<div class="card-body">
+								<div class="row no-gutters align-items-center">
+									<div class="col mr-2">
+										<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+											J'aime
+										</div>
+										<div class="h5 mb-0 font-weight-bold text-gray-800">{{stat.likes}}</div>
+									</div>
+									<div class="col-auto">
+										<i class="fa fa-thumbs-up fa-2x text-gray-300"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endif %}
+			{# dislike #}
+			{% if is_granted("ROLE_USER") %}
+				<div class="col-xl-4 col-md-6 mb-4 mx-auto">
+					{% set dislikeUrl = ea_url()
+					.setController('App\\Controller\\Admin\\DislikeCrudController')
+					.setAction('index')
+					%}
+					<a href="{{ dislikeUrl }}">
+						<div class="card border-left-warning shadow h-100 py-2">
+							<div class="card-body">
+								<div class="row no-gutters align-items-center">
+									<div class="col mr-2">
+										<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+											Je n'aime pas
+										</div>
+										<div class="h5 mb-0 font-weight-bold text-gray-800">{{stat.dislikes}}</div>
+									</div>
+									<div class="col-auto">
+										<i class="fa fa-thumbs-down fa-2x text-gray-300"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endif %}
+			{# deconnexion #}
+			{% if is_granted("ROLE_USER") %}
+				<div class="col-xl-4 col-md-6 mb-4 mx-auto">
+					<a href="{{ path('app_logout') }}">
+						<div class="card border-left-warning shadow h-100 py-2">
+							<div class="card-body">
+								<div class="row no-gutters align-items-center">
+									<div class="col mr-2">
+										<div class="text-xs font-weight-bold text-uppercase mb-1">
+											Déconnexion
+										</div>
+										<div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+									</div>
+									<div class="col-auto">
+										<i class="fas fa-sign-out-alt fa-2x text-gray-300"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endif %}
+
+		</div>
+	</div>
+{% endblock %}

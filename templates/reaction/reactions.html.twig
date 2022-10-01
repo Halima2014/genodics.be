@@ -1,0 +1,43 @@
+<div class="widget rounded">
+  <div class="widget-header text-center">
+    <h3 class="widget-title">Réactions</h3>
+    <img src="{{ asset('front/images/wave.svg') }}" class="wave" alt="wave" />
+  </div>
+  <div class="widget-content text-center">
+    <a href="{{path('ajout_like',{idarticle:article.id, on:islike})}}" class="tag px-3">
+      <span>( {{article.likes|length}} )</span>
+      {% if islike == 'true' %}
+        <img
+        width="25px"
+        src="{{ asset('front/images/reactions/like.svg') }}"
+        alt="like"
+      />
+      {% else %}
+        <img
+        width="25px"
+        src="{{ asset('front/images/reactions/like-in.svg') }}"
+        alt="like"
+      />
+      {% endif %}
+    </a>
+    <a href="{{path('ajout_dislike',{idarticle:article.id, on:isdislike})}}" class="tag px-3">
+      
+      {% if isdislike == 'true' %}
+        <img
+        width="25px"
+        src="{{ asset('front/images/reactions/dislike.svg') }}"
+        class="rotate-180"
+        alt="dislike"
+      />
+      {% else %}
+       <img
+        width="25px"
+        src="{{ asset('front/images/reactions/dislike-in.svg') }}"
+        class="rotate-180"
+        alt="dislike"
+      />
+      {% endif %}
+      <span>( {{article.dislikes|length}} )</span>
+    </a>
+  </div>
+</div>

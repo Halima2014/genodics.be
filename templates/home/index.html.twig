@@ -1,0 +1,147 @@
+{% extends 'frontbase.html.twig' %} {% block title %}Genodicsnet-Accueil{%
+endblock%} {% block body %}
+
+<!-- site wrapper -->
+<div class="site-wrapper">
+  <div class="main-overlay"></div>
+
+  {% include "header.html.twig" %}
+
+  <!-- section hero -->
+  <section class="hero data-bg-image d-flex align-items-center"
+    data-bg-image="{{ asset('front/images/other/hero.jpg') }}">
+    <div class="container-xl">
+      <div class="row">
+        <div class="col-sm-6 my-auto">
+          <!-- call to action -->
+          <div class="cta text-center">
+            <h2 class="mt-0 mb-4">Joël Sternheimer</h2>
+            <h3 class="mt-0 mb-4">Docteur en physique </h3>
+            <h3 class="mt-0 mb-4">Chercheur indépendant</h3>
+            <a href="{{ path('article_categorie', { categorie: 16 }) }}" class="btn btn-light mt-2">En savoir plus</a>
+          </div>
+        </div>
+        <div class="col-sm-6 zindex-1 bordered p-3 rounded-circle">
+          <img src="{{ asset('front/images/Joel.png') }}" class="img-top shadow-lg zindex-1 w-100 rounded-circle"
+               alt="Joël Sternheimer" />
+        </div>
+      </div>
+    </div>
+    <!-- animated mouse wheel -->
+    <span class="mouse">
+      <span class="wheel"></span>
+    </span>
+    <!-- wave svg -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 260">
+      <path fill="#FFF" fill-opacity="1"
+        d="M0,256L60,245.3C120,235,240,213,360,218.7C480,224,600,256,720,245.3C840,235,960,181,1080,176C1200,171,1320,213,1380,234.7L1440,256L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+      </path>
+    </svg>
+  </section>
+
+  <!-- section main content -->
+  <section class="main-content mt-5">
+    <div class="container-xl">
+      <div class="row gy-4">
+        <div class="col-lg-8">
+          <div class="row">
+            <div class="col-sm-12">
+              <video width="100%" controls autoplay muted class="rounded mb-3">
+                <source src="{{ asset('uploads/videos/definition.mp4') }}" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+          <div class="row gy-4">
+            {% for article in publications %}
+            <div class="col-sm-12">
+              <!-- post -->
+              <div class="post post-grid rounded bordered">
+                <div class="thumb top-rounded">
+                  <a href="{{
+                      path('article_categorie', {
+                        categorie: article.categorie.id
+                      })
+                    }}" class="category-badge position-absolute">{{ article.categorie }}</a>
+
+                  <a href="{{ asset('uploads/articles/') }}{{ article.fichier }}" target="blank">
+                    <span class="post-format">
+                      <i class="icon-doc"></i>
+                    </span>
+                  </a>
+                  <a href="{{ path('article_single', { id: article.id }) }}">
+                    <div class="inner">
+                      <img class="w-100 image-article" width="100%" height="200" src="{{ asset('uploads/articles/images/') }}{{
+                          article.image
+                        }}" alt="post-title" />
+                    </div>
+                  </a>
+                </div>
+                <div class="details">
+                  <ul class="meta list-inline mb-0">
+                    <li class="list-inline-item">
+                      <a href="#"><img src="{{ asset('front/images/other/author-sm.png') }}" class="author"
+                          alt="author" />{{ article.auteur }}</a>
+                    </li>
+                    <li class="list-inline-item">
+                      {{article.createdAt|date("m/Y")}}
+                    </li>
+                  </ul>
+                  <h5 class="post-title mb-3 mt-3">
+                    <a href="{{ path('article_single', { id: article.id }) }}">{{ article.titre }}</a>
+                  </h5>
+                  <p class="excerpt mb-0">
+                    {{article.description|striptags|slice(0, 200)}}
+                    <a href="{{ path('article_single', { id: article.id }) }}" class="button">[...]</a>
+                  </p>
+                </div>
+                <div class="post-bottom clearfix d-flex align-items-center">
+                  <div class="more-button float-end">
+                    <a href="{{ path('article_single', { id: article.id }) }}"><span class="icon-options"></span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+
+          
+        </div>
+        
+        <div class="col-lg-4">
+          <!-- sidebar -->
+          <div class="sidebar">
+            <!-- widget about -->
+            <div class="widget rounded">
+              <div class="widget-about data-bg-image text-center"
+                data-bg-image="{{ asset('front/images/map-bg.png') }}">
+                <img src="{{ asset('front/images/logoNoir.png') }}" alt="logo" class="mb-4" />
+                <p class="mb-4">
+                  La génodique est une technologie innovante permettant aux
+                  cultures de résister aux maladies et mieux grandir. Des
+                  mélodies appelées protéodies pour renforcer les cultures,
+                  prévenir et combattre les maladies.
+                </p>
+                {% include "socialMedia.html.twig" %}
+              </div>
+            </div>
+
+            <!-- widget hashtags -->
+            {{ include("hashtag/hashtags.html.twig") }}
+
+            <!-- widget categories -->
+            {{ include("categorie/widget.html.twig") }}
+
+            <!-- widget post carousel -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% include "citations.html.twig" %}
+{% include "sites.html.twig" %} {% include "footer.html.twig" %}
+
+<!-- end site wrapper -->
+
+{% include "menu.html.twig" %} {% endblock %}

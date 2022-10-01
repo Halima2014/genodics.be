@@ -1,0 +1,31 @@
+.image-article{
+    height: 300px !important;
+    border: 1px solid grey;
+    border-radius: 15px;
+}
+.image-comment{
+    width: 50px;
+    height: 50px;
+}
+a.nav-link:hover {
+    color: #FFF;
+    border-radius: 25px;
+    background: #FE4F70;
+    background: -webkit-linear-gradient(left, #FE4F70 0%, #FFA387 100%);
+    background: linear-gradient(to right, #FE4F70 0%, #FFA387 100%);
+  }
+.zindex-1{
+    z-index: 1 !important;
+}
+.img-top{
+    border: 2px solid white;
+    height: 572px;
+    
+ }
+ i.icon-doc, i.icon-link {
+    margin-top: 14px !important;
+    display: block;
+}
+.rotate-180{
+    transform: rotateY(180deg);
+}

@@ -1,0 +1,42 @@
+<!-- header -->
+	<header class="header-personal light">
+        <div class="container-xl header-top">
+			<div class="row align-items-center">
+
+				<div class="col-4 d-none d-md-block d-lg-block">
+					<!-- social icons -->
+					{% include "socialMedia.html.twig" %}
+				</div>
+
+				<div class="col-md-4 col-sm-12 col-xs-12 text-center">
+				<!-- site logo -->
+					<a class="navbar-brand" href="{{path('app_home')}}"><img src="{{asset('front/images/logo.png')}}" alt="logo" /></a>
+					
+				</div>
+
+				<div class="col-md-4 col-sm-12 col-xs-12">
+					<!-- header buttons -->
+					<div class="header-buttons float-md-end mt-4 mt-md-0">
+						
+						<button class="burger-menu icon-button ms-2 float-end float-md-none">
+							<span class="burger-icon"></span>
+						</button>
+					</div>
+				</div>
+
+			</div>
+        </div>
+
+		<nav class="navbar navbar-expand-lg">
+			<div class="container-xl">
+				
+				<div class="collapse navbar-collapse justify-content-center centered-nav">
+					<!-- menus -->
+					<ul class="navbar-nav">
+						{% include "links.html.twig" %}
+					</ul>
+				</div>
+
+			</div>
+		</nav>
+	</header>

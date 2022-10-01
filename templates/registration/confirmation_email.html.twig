@@ -1,0 +1,48 @@
+{% extends 'frontbase.html.twig' %} {% block title %}Genodics-Inscription-confirmation email{%
+endblock%} {% block body %}
+
+<!-- site wrapper -->
+<div class="site-wrapper">
+  <div class="main-overlay"></div>
+
+  <!-- header -->
+  {% include "headerBlanc.html.twig" %}
+
+  <!-- page header -->
+  <section class="page-header">
+    <div class="container-xl">
+      <div class="text-center">
+       
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item">
+              <a href="{{ path('app_home') }}">Accueil</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              confirmation Email
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- section main content -->
+  <section class="main-content">
+    <div class="container-xl">
+      <div class="row">
+        <div class="col-sm-6 mx-auto mb-5">
+          <div class="p-5 border rounded">
+            <h2>confirmation email</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  {% include "footer.html.twig" %}
+</div>
+<!-- end site wrapper -->
+
+{% include "menu.html.twig" %} {% endblock %}

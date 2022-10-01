@@ -1,0 +1,104 @@
+{% extends 'frontbase.html.twig' %}
+
+{% block title %}Genodics-Articles{%endblock%}
+{% block meta_description %}article description{% endblock%} 
+{% block body %}
+
+<!-- site wrapper -->
+<div class="site-wrapper">
+  <div class="main-overlay"></div>
+
+  <!-- header -->
+  {% include "headerBlanc.html.twig" %}
+
+  <!-- page header -->
+  <section class="page-header">
+    <div class="container-xl">
+      <div class="text-center">
+        <h1 class="mt-0 mb-2">{{titre}}</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a href="{{path('app_home')}}">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{titre}}</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- section main content -->
+  <section class="main-content">
+    <div class="container-xl">
+      <div class="row">
+        {% for article in articles %}
+        <div class="col-sm-6 d-flex mx-auto my-3">
+          <!-- post -->
+          <div class="post post-grid rounded bordered">
+            <div class="thumb top-rounded">
+              <a href="{{path('article_categorie',{'categorie':article.categorie.id})}}" class="category-badge position-absolute">{{
+                article.categorie
+              }}</a>
+              <a
+                href="{{ asset('uploads/articles/') }}{{ article.fichier }}"
+                target="blank"
+              >
+                <span class="post-format">
+                  <i class="icon-doc"></i>
+                </span>
+              </a>
+              <a href="{{path('article_single',{'id':article.id})}}">
+                <div class="inner">
+                  <img
+                    class="w-100 image-article"
+                    src="{{ asset('uploads/articles/images/') }}{{
+                      article.image
+                    }}"
+                    alt="post-title"  
+                  />
+                </div>
+              </a>
+            </div>
+            <div class="details">
+              <ul class="meta list-inline mb-0">
+                <li class="list-inline-item">
+                
+                    <img
+                      src="{{ asset('front/images/other/author-sm.png') }}"
+                      class="author"
+                      alt="author"
+                    />{{ article.auteur }}
+                </li>
+                <li class="list-inline-item">
+                  {{article.createdAt|date("m/Y")}}
+                </li>
+              </ul>
+              <h5 class="post-title mb-3 mt-3">
+                <a href="{{path('article_single',{'id':article.id})}}" >{{ article.titre }}</a>
+              </h5>
+              <p class="excerpt mb-0">
+                {{article.description|striptags|slice(0, 200)}}
+                <a href="{{path('article_single',{'id':article.id})}}"
+                  class="button">[...]</a>
+                
+              </p>
+            </div>
+            <div class="post-bottom clearfix d-flex align-items-center float-end">
+              <div class="more-button float-end">
+                <a href="{{path('article_single',{'id':article.id})}}"
+                  class="button"><span class="icon-eye"></span
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  {% include "footer.html.twig" %}
+</div>
+<!-- end site wrapper -->
+
+{% include "menu.html.twig" %} {% endblock %}

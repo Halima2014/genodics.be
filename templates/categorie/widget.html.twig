@@ -1,0 +1,23 @@
+{% if categories|length > 0 %}
+
+  <div class="widget rounded">
+      <div class="widget-header text-center">
+          <h3 class="widget-title">Catégories</h3>
+          <img src="{{asset('front/images/wave.svg')}}" class="wave" alt="wave" />
+      </div>
+      <div class="widget-content">
+          <ul class="list">
+            
+            {% for categorie in categories %}
+                {% if categorie.label != "Media" %}
+                    <li>
+                      <a href="{{path('article_categorie',{categorie:categorie.id})}}">{{categorie.label}}</a>
+                    </li>
+
+                {% endif %}
+                
+            {% endfor %}
+          </ul>
+      </div>
+  </div>
+{% endif %}

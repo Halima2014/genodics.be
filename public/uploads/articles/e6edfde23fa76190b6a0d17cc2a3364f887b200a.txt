@@ -1,0 +1,21 @@
+uses  TensorFlow for: 
+-Machine learning
+-deep learning
+
+To make Google Duplex so realistic, Google used all of its collected conversation data and its Automatic Speech Recognition (ASR)
+technology to provide data points for the machine learning model
+
+-A neural network is a computing system that is trained to do an automated task
+recurrent neural network 
+
+understand the context of the conversation
+
+In order to make Duplex sound natural, Google used a concatenative and synthesis text to speech engine (Tacotron and WaveNet) 	
+
+Tacotron and WaveNet: Generating Human-like Speech from Text
+
+
+
+reference: https://medium.com/buzz-words/google-duplex-how-it-works-implications-388f8a7a4f8b 
+
+Machine learning hardware: https://towardsdatascience.com/hardware-for-deep-learning-8d9b03df41a

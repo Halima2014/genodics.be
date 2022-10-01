@@ -1,0 +1,14 @@
+{% if hashtags|length > 0 %}
+    <div class="widget rounded">
+							<div class="widget-header text-center">
+								<h3 class="widget-title">Hashtags</h3>
+								<img src="{{asset('front/images/wave.svg')}}" class="wave" alt="wave">
+							</div>
+							<div class="widget-content">
+							
+								{% for hashtag in hashtags %}
+                                    <a href="{{path('article_hashtag',{label:hashtag.label})}}" class="tag">#{{hashtag.label}}</a>
+                                {% endfor %}
+							</div>		
+</div>
+{% endif %}

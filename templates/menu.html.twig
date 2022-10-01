@@ -1,0 +1,20 @@
+<!-- canvas menu -->
+<div class="canvas-menu d-flex align-items-end flex-column">
+	<!-- close button -->
+	<button type="button" class="btn-close" aria-label="Close"></button>
+
+	<!-- logo -->
+	<div class="logo">
+		<img src="{{asset('front/images/logoNoir.png')}}" alt="Genodics" />
+	</div>
+
+	<!-- menu -->
+	<nav>
+		<ul class="vertical-menu">
+			{% include "links.html.twig" %}
+		</ul>
+	</nav>
+
+	<!-- social icons -->
+	{% include "socialMedia.html.twig" %}
+</div>

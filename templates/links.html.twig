@@ -1,0 +1,88 @@
+{% set route = app.request.attributes.get('_route') %}
+
+{% set categorie = app.request.attributes.get('categorie') %}
+<li class="nav-item dropdown {{ route == 'index' ? 'active' : '' }}">
+  <a class="nav-link" href="{{ path('app_home') }}">Accueil</a>
+</li>
+
+<li class="nav-item {{ route == 'app_media' ? 'active' : '' }}">
+  <a class="nav-link dropdown-toggle" href="{{ path('app_media') }}">Media</a>
+  <ul class="dropdown-menu">
+    <li>
+      <a class="dropdown-item" href="{{ path('temoignages') }}">Témoignages</a>
+    </li>
+    <li>
+      <a class="dropdown-item" href="{{ path('reportages') }}">Reportages</a>
+    </li>
+    <li><a class="dropdown-item" href="{{ path('presse') }}">Press</a></li>
+  </ul>
+</li>
+<li class="nav-item {{ route == 'article_categorie' and categorie in [10,11,12] ? 'active' : '' }}">
+  <a
+    class="nav-link dropdown-toggle"
+    href="{{ path('article_categorie', { categorie: 10 }) }}"
+    >Publications</a
+  >
+  <ul class="dropdown-menu">
+    <li>
+      <a
+        class="dropdown-item"
+        href="{{ path('article_categorie', { categorie: 11 }) }}"
+        >De Joël Sternheimer</a
+      >
+    </li>
+    <li>
+      <a
+        class="dropdown-item"
+        href="{{ path('article_categorie', { categorie: 12 }) }}"
+        >Autres</a
+      >
+    </li>
+  </ul>
+</li>
+<li class="nav-item {{ route == 'article_categorie' and categorie in [13,14,15] ? 'active' : '' }}">
+  <a
+    class="nav-link dropdown-toggle"
+    href="{{ path('article_categorie', { categorie: 13 }) }}"
+    >Textes d'intérêt</a
+  >
+  <ul class="dropdown-menu">
+    <li>
+      <a
+        class="dropdown-item"
+        href="{{ path('article_categorie', { categorie: 14 }) }}"
+        >De Joël Sternheimer</a
+      >
+    </li>
+    <li>
+      <a
+        class="dropdown-item"
+        href="{{ path('article_categorie', { categorie: 15 }) }}"
+        >Autres</a
+      >
+    </li>
+  </ul>
+</li>
+
+<li class="nav-item {{ route == 'app_contact' ? 'active' : '' }}">
+  <a class="nav-link" href="{{ path('app_contact') }}">Contact</a>
+</li>
+{% if not app.user %}
+ 
+  <li class="nav-item ">
+    <a class="nav-link " href="{{ path('app_login') }}">Connexion</a>	
+  </li>
+   <li class="nav-item ">
+    <a class="nav-link " href="{{ path('app_register') }}">Inscription</a>	
+  </li>
+{% else %}
+{% if is_granted("ROLE_ADMIN") %}
+  <li class="nav-item">
+    <a class="nav-link" href="{{ path('admin') }}"><i class="fa fa-home"></i></a>
+  </li>
+{% endif %}
+  <li class="nav-item">
+    <a class="nav-link" href="{{ path('app_logout') }}"><i class="fa fa-sign-out-alt"></i></a>
+  </li>
+
+{% endif %}

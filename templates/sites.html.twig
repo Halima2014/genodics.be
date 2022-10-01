@@ -1,0 +1,46 @@
+
+
+<div class="container">
+    <div class="row gy-4">
+    <pre></pre>
+    <hr>
+    <h2 class="text-center">SITES ASSOCIES</h2>
+        {% for site in sites %}
+        <div class="col-lg-6 mx-auto  d-flex">
+                <!-- post -->
+            <div class="post post-classic rounded bordered">
+                <div class="thumb top-rounded">
+                    <a href="{{site.url}}" class="category-badge lg position-absolute">Site</a>
+                    <span class="post-format">
+                        <i class="icon-link"></i>
+                    </span>
+                    <a href="{{site.url}}">
+                        <div class="inner">
+                            <img width="100%" src="{{asset('uploads/sites/')}}{{site.image}}" alt="post-title">
+                        </div>
+                    </a>
+                </div>
+                <div class="details">
+                   
+                    <h5 class="post-title mb-3 mt-3"><a href="{{site.url}}">{{site.titre}}</a></h5>
+                    <p class="excerpt mb-0">{{site.description|raw}}</p>
+                </div>
+                <div class="post-bottom clearfix d-flex align-items-center">
+                   
+                    <div class="float-end d-none d-md-block">
+                        <a href="{{site.url}}" class="more-link">Voir<i class="icon-arrow-right"></i></a>
+                    </div>
+                    <div class="more-button d-block d-md-none float-end">
+                        <a href="{{site.url}}"><span class="icon-options"></span></a>
+                    </div>
+                </div>
+            </div>
+            
+    
+    
+        </div>
+    {% endfor %}
+    </div>
+    
+</div>
+

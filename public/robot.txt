@@ -1,0 +1,5 @@
+# robots.txt 
+# www.robotstxt.org/
+ 
+User-agent: *
+Sitemap: https://genodics.be/sitemap/sitemap.xml
