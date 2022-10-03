@@ -29,29 +29,21 @@ class RegistrationController extends AbstractController
      public function __construct(VerifyEmailHelperInterface $helper, MailerInterface $mailer)
     {
         $this->verifyEmailHelper = $helper;
-        $this->mailer = $mailer;
+        $this->mailer = $mailer;----
     }  */
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(
-        Request $request,
-        UserPasswordHasherInterface $userPasswordHasher,
-        UserAuthenticatorInterface $userAuthenticator,
-        UserAuthenticator $authenticator,
-        EntityManagerInterface $entityManager,
-        \Swift_Mailer $swiftMailer
-    ): Response {
+    public function register( Request $request,UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator,
+     UserAuthenticator $authenticator, EntityManagerInterface $entityManager, \Swift_Mailer $swiftMailer ): Response
+      {
 
         $user = new User();
-
-
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-
 
             $nom = $form->get('nom')->getData();
             $prenom = $form->get('prenom')->getData();
@@ -92,52 +84,12 @@ class RegistrationController extends AbstractController
 
                 );
 
-
-
             try {
                 $swiftMailer->send($message);
                 $msg = 'Email envoyé avec succée';
             } catch (\Throwable $th) {
                 $msg = "Problème d'envoie de votre email";
             }
-
-            //fin email
-            //********** */
-            // do anything else you need here, like send an email
-
-            // return $userAuthenticator->authenticateUser(
-            //     $user,
-            //     $authenticator,
-            //     $request
-            // );
-
-
-            // handle the user registration form and persist the new user...
-
-            /* $signatureComponents = $this->verifyEmailHelper->generateSignature(
-            'registration_confirmation_route',
-            $user->getId(),
-            $user->getEmail()
-        ); */
-
-            /*  $email = new TemplatedEmail();
-    $email->from('send@example.com');
-    $email->to($user->getEmail());
-    $email->htmlTemplate('registration/confirmation_email.html.twig');
-    $email->context(['signedUrl' => $signatureComponents->getSignedUrl()]);
-    $this->mailer->send($email);
-     */
-
-            /*  $message = (new \Swift_Message('Genodics Email Verification'))
-    ->setFrom('dabbekchakib@gmail.com')
-    ->setTo($user->getEmail())
-    ->setBody(
-        $signatureComponents->getSignedUrl()
-    );
-    $swiftMailer->send($message); */
-
-
-
 
             // generate and return a response for the browser
 
